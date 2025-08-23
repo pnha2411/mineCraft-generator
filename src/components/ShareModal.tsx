@@ -143,12 +143,12 @@ export const ShareModal = ({ imageUrl, txHash, tokenURI, nftName }: ShareModalPr
                 <div className="text-sm font-minecraft font-semibold">Transaction Details:</div>
                 <div className="flex gap-2">
                   <Input
-                    value={`https://etherscan.io/tx/${txHash}`}
+                    value={`https://explorer.testnet.citrea.xyz/tx/${txHash}`}
                     readOnly
                     className="font-mono text-xs border-2 border-minecraft-stone"
                   />
                   <Button
-                    onClick={() => copyToClipboard(`https://etherscan.io/tx/${txHash}`, 'Transaction link')}
+                    onClick={() => copyToClipboard(`https://explorer.testnet.citrea.xyz/tx/${txHash}`, 'Transaction link')}
                     size="sm"
                     variant="outline"
                     className="border-2 border-minecraft-stone"
@@ -156,7 +156,7 @@ export const ShareModal = ({ imageUrl, txHash, tokenURI, nftName }: ShareModalPr
                     <Copy className="w-4 h-4" />
                   </Button>
                   <Button
-                    onClick={() => window.open(`https://etherscan.io/tx/${txHash}`, '_blank')}
+                    onClick={() => window.open(`https://explorer.testnet.citrea.xyz/tx/${txHash}`, '_blank')}
                     size="sm"
                     variant="outline"
                     className="border-2 border-minecraft-stone"

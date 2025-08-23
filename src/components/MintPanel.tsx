@@ -76,10 +76,11 @@ export const MintPanel = ({ imageBlob, config }: MintPanelProps) => {
       updateStep(1, false, true);
       setMintingProgress(25);
       
-      const imageUrl = await ipfsUploader.uploadImage(
-        imageBlob, 
-        `${nftMetadata.name.replace(/\s+/g, '-').toLowerCase()}.png`
-      );
+      // const imageUrl = await ipfsUploader.uploadImage(
+      //   imageBlob, 
+      //   `${nftMetadata.name.replace(/\s+/g, '-').toLowerCase()}.png`
+      // );
+      const imageUrl = "http://pqd"
       
       updateStep(1, true);
       toast.success('Image uploaded to IPFS!');
@@ -101,7 +102,8 @@ export const MintPanel = ({ imageBlob, config }: MintPanelProps) => {
         ],
       };
 
-      const metadataUri = await ipfsUploader.uploadMetadata(metadata);
+      // const metadataUri = await ipfsUploader.uploadMetadata(metadata);
+      const metadataUri = "http://pqd"
       setTokenURI(metadataUri);
       
       updateStep(2, true);
@@ -114,8 +116,8 @@ export const MintPanel = ({ imageBlob, config }: MintPanelProps) => {
       writeContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
-        functionName: 'mintWithTokenURI',
-        args: [address, metadataUri],
+        functionName: 'mint',
+        args: [address, 10],
       } as any); // Temporary fix for wagmi typing issues
 
       // Transaction submitted, wait for confirmation
@@ -248,7 +250,7 @@ export const MintPanel = ({ imageBlob, config }: MintPanelProps) => {
                 <div className="flex items-center gap-2">
                   <span className="font-minecraft">Transaction:</span>
                   <a 
-                    href={`https://etherscan.io/tx/${txHash || hash}`}
+                    href={`https://explorer.testnet.citrea.xyz/tx/${txHash || hash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-accent hover:underline flex items-center gap-1 font-mono"

@@ -1,15 +1,4 @@
-import { getDefaultConfig } from '@rainbow-me/rainbowkit';
-import { sepolia, mainnet, polygon, base, citreaTestnet } from 'wagmi/chains';
-
-export const config = getDefaultConfig({
-  appName: 'Minecraft NFT Generator',
-  projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'your-project-id',
-  chains: [sepolia, mainnet, polygon, base, citreaTestnet],
-  ssr: false, // Using Vite, not Next.js
-});
-
-export const CONTRACT_ADDRESS = '0x95691fD90c9c28898912906C19BCc6569A736762' as const; // Placeholder
-export const CONTRACT_ABI = [
+[
 	{
 		"inputs": [
 			{
@@ -840,4 +829,4 @@ export const CONTRACT_ABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-] as const;
+]

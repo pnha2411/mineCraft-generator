@@ -58,6 +58,11 @@ const Index = () => {
 
         {/* Footer */}
         <footer className="text-center py-8 border-t-2 border-minecraft-cobblestone">
+          <img
+            src="/btcfistation.png"
+            alt="BTCFi Station"
+            className="mx-auto mb-2 w-12 h-12"
+          />
           <p className="text-sm text-muted-foreground font-minecraft">
             Built with ⚡ Vite + React + Tailwind + RainbowKit + IPFS
           </p>
