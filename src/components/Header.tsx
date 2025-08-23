@@ -11,10 +11,10 @@ export const Header = () => {
           </div>
           <div>
             <h1 className="text-2xl font-minecraft font-bold text-primary-foreground">
-              Minecraft NFT Forge
+              Block Art NFT Forge
             </h1>
             <p className="text-sm text-primary-foreground/80 font-minecraft">
-              Generate → Mint → Share blocky art
+              Generate Minecraft & Pokemon → Mint → Share
             </p>
           </div>
         </div>

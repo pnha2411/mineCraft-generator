@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, Wand2, Download, Palette } from 'lucide-react';
-import { MinecraftImageGenerator, GeneratorConfig } from '@/lib/imageGenerator';
+import { BlockArtGenerator, GeneratorConfig } from '@/lib/imageGenerator';
 import { toast } from 'sonner';
 
 interface GeneratorProps {
@@ -16,6 +16,7 @@ export const Generator = ({ onImageGenerated }: GeneratorProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [config, setConfig] = useState<GeneratorConfig>({
     size: 512,
+    artStyle: 'minecraft',
     palette: 'classic',
     style: 'flat',
     subject: 'castle'
@@ -27,7 +28,7 @@ export const Generator = ({ onImageGenerated }: GeneratorProps) => {
     
     setIsGenerating(true);
     try {
-      const generator = new MinecraftImageGenerator(config);
+      const generator = new BlockArtGenerator(config);
       const imageBlob = await generator.generate();
       
       // Create preview URL
@@ -35,7 +36,8 @@ export const Generator = ({ onImageGenerated }: GeneratorProps) => {
       setPreviewUrl(url);
       
       onImageGenerated(imageBlob, config);
-      toast.success('✨ Blocky masterpiece generated!');
+      const artType = config.artStyle === 'pokemon' ? 'Pokemon' : 'Minecraft';
+      toast.success(`✨ ${artType} block art generated!`);
     } catch (error) {
       console.error('Generation failed:', error);
       toast.error('Generation failed. Try again!');
@@ -49,11 +51,29 @@ export const Generator = ({ onImageGenerated }: GeneratorProps) => {
     
     const link = document.createElement('a');
     link.href = previewUrl;
-    link.download = `minecraft-${config.subject}-${Date.now()}.png`;
+    link.download = `${config.artStyle}-${config.subject}-${Date.now()}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }, [previewUrl, config.subject]);
+  }, [previewUrl, config.subject, config.artStyle]);
+
+  const getAvailablePalettes = () => {
+    if (config.artStyle === 'pokemon') {
+      return [
+        { value: 'fire', label: '🔥 Fire Type' },
+        { value: 'water', label: '💧 Water Type' },
+        { value: 'grass', label: '🌱 Grass Type' },
+        { value: 'electric', label: '⚡ Electric Type' },
+        { value: 'psychic', label: '🔮 Psychic Type' }
+      ];
+    } else {
+      return [
+        { value: 'classic', label: '🌱 Classic (Overworld)' },
+        { value: 'nether', label: '🔥 Nether' },
+        { value: 'end', label: '🌌 The End' }
+      ];
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -64,7 +84,26 @@ export const Generator = ({ onImageGenerated }: GeneratorProps) => {
           <h2 className="text-xl font-minecraft font-bold">Craft Your World</h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="space-y-2">
+            <Label className="font-minecraft text-sm font-semibold">Art Style</Label>
+            <Select 
+              value={config.artStyle} 
+              onValueChange={(value: 'minecraft' | 'pokemon') => {
+                const newPalette = value === 'pokemon' ? 'fire' : 'classic';
+                setConfig(prev => ({ ...prev, artStyle: value, palette: newPalette as any }));
+              }}
+            >
+              <SelectTrigger className="font-minecraft border-2 border-minecraft-stone">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="minecraft">⛏️ Minecraft</SelectItem>
+                <SelectItem value="pokemon">⚡ Pokemon</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="subject" className="font-minecraft text-sm font-semibold">
               Subject
@@ -73,7 +112,7 @@ export const Generator = ({ onImageGenerated }: GeneratorProps) => {
               id="subject"
               value={config.subject}
               onChange={(e) => setConfig(prev => ({ ...prev, subject: e.target.value }))}
-              placeholder="castle, tree, house..."
+              placeholder={config.artStyle === 'pokemon' ? 'Pikachu, Charizard...' : 'castle, tree, house...'}
               className="font-minecraft border-2 border-minecraft-stone"
             />
           </div>
@@ -82,17 +121,19 @@ export const Generator = ({ onImageGenerated }: GeneratorProps) => {
             <Label className="font-minecraft text-sm font-semibold">Palette</Label>
             <Select 
               value={config.palette} 
-              onValueChange={(value: 'classic' | 'nether' | 'end') => 
-                setConfig(prev => ({ ...prev, palette: value }))
+              onValueChange={(value) => 
+                setConfig(prev => ({ ...prev, palette: value as any }))
               }
             >
               <SelectTrigger className="font-minecraft border-2 border-minecraft-stone">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="classic">🌱 Classic (Overworld)</SelectItem>
-                <SelectItem value="nether">🔥 Nether</SelectItem>
-                <SelectItem value="end">🌌 The End</SelectItem>
+                {getAvailablePalettes().map(palette => (
+                  <SelectItem key={palette.value} value={palette.value}>
+                    {palette.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -146,7 +187,7 @@ export const Generator = ({ onImageGenerated }: GeneratorProps) => {
             ) : (
               <Wand2 className="w-4 h-4 mr-2" />
             )}
-            {isGenerating ? 'Crafting...' : 'Generate Block Art'}
+            {isGenerating ? 'Crafting...' : `Generate ${config.artStyle === 'pokemon' ? 'Pokemon' : 'Minecraft'} Art`}
           </Button>
           
           {previewUrl && (
@@ -166,13 +207,13 @@ export const Generator = ({ onImageGenerated }: GeneratorProps) => {
       {previewUrl && (
         <Card className="p-6 border-2 border-minecraft-cobblestone shadow-block bg-minecraft-stone/10">
           <h3 className="text-lg font-minecraft font-bold mb-4 text-center">
-            Your Blocky Creation
+            Your {config.artStyle === 'pokemon' ? 'Pokemon' : 'Blocky'} Creation
           </h3>
           <div className="flex justify-center">
             <div className="border-4 border-minecraft-cobblestone shadow-block-lg bg-minecraft-wood/20 p-2">
               <img 
                 src={previewUrl}
-                alt="Generated Minecraft art"
+                alt={`Generated ${config.artStyle} art`}
                 className="pixelated max-w-full h-auto rounded-none"
                 style={{ imageRendering: 'pixelated' }}
               />
