@@ -3,7 +3,7 @@ import { sepolia, mainnet, polygon, base } from 'wagmi/chains';
 
 export const config = getDefaultConfig({
   appName: 'Minecraft NFT Generator',
-  projectId: process.env.VITE_WALLETCONNECT_PROJECT_ID || 'your-project-id',
+  projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'your-project-id',
   chains: [sepolia, mainnet, polygon, base],
   ssr: false, // Using Vite, not Next.js
 });
