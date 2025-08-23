@@ -2,41 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Minecraft-inspired Design System */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Minecraft-inspired color palette */
+    --background: 141 34% 85%;        /* Light grass/dirt tone */
+    --foreground: 0 0% 15%;           /* Dark coal */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 28 33% 78%;               /* Light wood/sand */
+    --card-foreground: 0 0% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 28 33% 78%;
+    --popover-foreground: 0 0% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 99 51% 33%;            /* Grass green */
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 28 45% 45%;          /* Dirt brown */
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 65%;                /* Stone gray */
+    --muted-foreground: 0 0% 25%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 201 89% 48%;            /* Sky blue */
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 45%;         /* Redstone red */
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --success: 99 51% 33%;            /* Emerald green */
+    --success-foreground: 0 0% 98%;
 
-    --radius: 0.5rem;
+    --warning: 45 100% 50%;           /* Gold/yellow */
+    --warning-foreground: 0 0% 15%;
+
+    --border: 0 0% 45%;               /* Dark stone */
+    --input: 28 33% 88%;              /* Light sand */
+    --ring: 99 51% 33%;               /* Grass green */
+
+    --radius: 0rem;                   /* No rounded corners - blocky! */
+
+    /* Minecraft-specific colors */
+    --minecraft-grass: 99 51% 33%;
+    --minecraft-dirt: 28 45% 45%;
+    --minecraft-stone: 0 0% 50%;
+    --minecraft-cobblestone: 0 0% 35%;
+    --minecraft-wood: 28 33% 55%;
+    --minecraft-sky: 201 89% 68%;
+    --minecraft-water: 201 89% 48%;
+    --minecraft-lava: 15 100% 50%;
+    --minecraft-gold: 45 100% 50%;
+    --minecraft-diamond: 180 100% 50%;
+    --minecraft-emerald: 140 100% 35%;
+    --minecraft-coal: 0 0% 15%;
+
+    /* Gradients */
+    --gradient-minecraft: linear-gradient(135deg, hsl(var(--minecraft-grass)), hsl(var(--minecraft-dirt)));
+    --gradient-sky: linear-gradient(180deg, hsl(var(--minecraft-sky)), hsl(var(--minecraft-water)));
+    --gradient-earth: linear-gradient(180deg, hsl(var(--minecraft-dirt)), hsl(var(--minecraft-stone)));
+
+    /* Shadows - blocky and sharp */
+    --shadow-block: 4px 4px 0px hsl(var(--minecraft-cobblestone));
+    --shadow-block-lg: 6px 6px 0px hsl(var(--minecraft-cobblestone));
+    --shadow-glow: 0 0 20px hsl(var(--minecraft-diamond) / 0.3);
+
+    /* Animations */
+    --transition-minecraft: all 0.2s cubic-bezier(0.4, 0, 0.6, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,33 +89,40 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode - night time in Minecraft */
+    --background: 0 0% 8%;              /* Dark void */
+    --foreground: 0 0% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 12%;                   /* Dark stone */
+    --card-foreground: 0 0% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 99 51% 40%;              /* Bright grass */
+    --primary-foreground: 0 0% 15%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 28 35% 25%;            /* Dark dirt */
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 20%;                  /* Dark stone */
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 201 89% 58%;              /* Bright sky */
+    --accent-foreground: 0 0% 15%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 55%;           /* Bright redstone */
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --success: 99 51% 40%;
+    --success-foreground: 0 0% 15%;
+
+    --warning: 45 100% 60%;
+    --warning-foreground: 0 0% 15%;
+
+    --border: 0 0% 25%;
+    --input: 0 0% 15%;
+    --ring: 99 51% 40%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +140,53 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  /* Minecraft-style pixelated rendering */
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;  
+    image-rendering: crisp-edges;
+  }
+
+  /* Block shadow utilities */
+  .shadow-block {
+    box-shadow: var(--shadow-block);
+  }
+
+  .shadow-block-lg {
+    box-shadow: var(--shadow-block-lg);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Minecraft button styles */
+  .btn-minecraft {
+    @apply bg-primary text-primary-foreground font-bold px-6 py-3 border-2 border-solid border-black;
+    box-shadow: var(--shadow-block);
+    transition: var(--transition-minecraft);
+  }
+
+  .btn-minecraft:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px hsl(var(--minecraft-cobblestone));
+  }
+
+  .btn-minecraft:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px hsl(var(--minecraft-cobblestone));
+  }
+
+  /* Retro pixelated font styling */
+  .font-minecraft {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-weight: 600;
+    letter-spacing: 0.02em;
   }
 }

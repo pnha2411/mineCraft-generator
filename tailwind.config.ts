@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				mono: ['JetBrains Mono', 'Courier New', 'monospace'],
+				minecraft: ['JetBrains Mono', 'Courier New', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -36,6 +40,14 @@ export default {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
 				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
+				},
+				warning: {
+					DEFAULT: 'hsl(var(--warning))',
+					foreground: 'hsl(var(--warning-foreground))'
+				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted))',
 					foreground: 'hsl(var(--muted-foreground))'
@@ -52,6 +64,20 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				minecraft: {
+					grass: 'hsl(var(--minecraft-grass))',
+					dirt: 'hsl(var(--minecraft-dirt))',
+					stone: 'hsl(var(--minecraft-stone))',
+					cobblestone: 'hsl(var(--minecraft-cobblestone))',
+					wood: 'hsl(var(--minecraft-wood))',
+					sky: 'hsl(var(--minecraft-sky))',
+					water: 'hsl(var(--minecraft-water))',
+					lava: 'hsl(var(--minecraft-lava))',
+					gold: 'hsl(var(--minecraft-gold))',
+					diamond: 'hsl(var(--minecraft-diamond))',
+					emerald: 'hsl(var(--minecraft-emerald))',
+					coal: 'hsl(var(--minecraft-coal))',
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -62,6 +88,11 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'gradient-minecraft': 'var(--gradient-minecraft)',
+				'gradient-sky': 'var(--gradient-sky)',
+				'gradient-earth': 'var(--gradient-earth)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
