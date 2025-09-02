@@ -250,7 +250,7 @@ export const MintPanel = ({ imageBlob, config }: MintPanelProps) => {
                 <div className="flex items-center gap-2">
                   <span className="font-minecraft">Transaction:</span>
                   <a 
-                    href={`https://explorer.testnet.citrea.xyz/tx/${txHash || hash}`}
+                    href={`https://chainscan-galileo.0g.ai/tx/${txHash || hash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-accent hover:underline flex items-center gap-1 font-mono"

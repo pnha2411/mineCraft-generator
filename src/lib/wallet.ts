@@ -1,14 +1,32 @@
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 import { sepolia, mainnet, polygon, base, citreaTestnet } from 'wagmi/chains';
 
+export const g_testnet = {
+  id: 16601,
+  name: '0g-testnet',
+  network: '0g-testnet',
+  nativeCurrency: {
+    name: '0G',
+    symbol: '0G',
+    decimals: 18,
+  },
+  rpcUrls: {
+    default: { http: ['https://evmrpc-testnet.0g.ai'] },
+  },
+  blockExplorers: {
+    default: { name: '0g-testnet Explorer', url: 'https://chainscan-galileo.0g.ai' },
+  },
+  testnet: true,
+};
+
 export const config = getDefaultConfig({
   appName: 'Minecraft NFT Generator',
   projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'your-project-id',
-  chains: [sepolia, mainnet, polygon, base, citreaTestnet],
+  chains: [sepolia, mainnet, polygon, base, citreaTestnet, g_testnet],
   ssr: false, // Using Vite, not Next.js
 });
 
-export const CONTRACT_ADDRESS = '0x95691fD90c9c28898912906C19BCc6569A736762' as const; // Placeholder
+export const CONTRACT_ADDRESS = '0xA1F002bf7cAD148a639418D77b93912871901875' as const; // Placeholder
 export const CONTRACT_ABI = [
 	{
 		"inputs": [
